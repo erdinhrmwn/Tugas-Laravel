@@ -5,9 +5,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
+    <title>Database</title>
 
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <!-- Styles -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
     <style>
         h1 {
             font-size: 30px;
@@ -53,13 +57,18 @@
             border-bottom: solid 1px rgba(255, 255, 255, 0.1);
         }
 
+        td:last-child,
+        th:last-child {
+            width: 300px;
+        }
+
 
         /* demo styles */
 
         @import url(https://fonts.googleapis.com/css?family=Quicksand);
         body {
-            background: -webkit-linear-gradient(left, #25c481, #25b7c4);
-            background: linear-gradient(to right, #25c481, #25b7c4);
+            background: -webkit-linear-gradient(left, #5996e5, #af47d8);
+            background: linear-gradient(to right, #5996e5, #af47d8);
             font-family: 'Quicksand', sans-serif;
         }
 
@@ -111,6 +120,35 @@
         ::-webkit-scrollbar-thumb {
             -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
         }
+
+        button {
+            outline: none;
+            height: 40px;
+            text-align: center;
+            width: 40px;
+            border-radius: 40px;
+            background: rgba(0, 0, 0, 0);
+            border: 2px solid #1ECD97;
+            color: #1ECD97;
+            letter-spacing: 1px;
+            text-shadow: 0;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        button:hover {
+            color: white;
+            background: #1ECD97;
+        }
+
+        button:active {
+            letter-spacing: 2px;
+            background: rgba(0, 0, 0, 0);
+            border: 2px solid #1ECD97;
+            color: #1ECD97;
+        }
     </style>
 </head>
 
@@ -129,6 +167,7 @@
                             <th>Nama Barang</th>
                             <th>Harga Barang</th>
                             <th>Jumlah Barang</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                 </table>
@@ -144,6 +183,11 @@
                             <td>Baju</td>
                             <td>40000</td>
                             <td>2</td>
+                            <td>
+                                <button id="add"><i class="fas fa-user-plus"></i></button>
+                                <button id="edit"><i class="far fa-edit"></i></button>
+                                <button id="delete"><i class="far fa-trash-alt"></i></button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -155,9 +199,27 @@
         <div class="made-with-love">
             Made with
             <i>♥</i> by
-            <a target="_blank" href="https://codepen.io/nikhil8krishnan">Nikhil Krishnan</a>
+            <a target="_blank" href="https://fb.me/zuck">Erdin Hermawan</a>
         </div>
     </div>
 </body>
+<script>
+    $("#add").on("click", function(e){
+		 e.preventDefault();
+    // var id = $("input[name=id]").val();
+    $(location).attr('href', '/add')
+    });
+    $("#edit").on("click", function(e){
+		 e.preventDefault();
+    var id = $(this).parent().siblings(":first").text();
+    $(location).attr('href', '/edit/'+id);
+    });
+    $("#delete").on("click", function(e){
+		 e.preventDefault();
+    var id = $(this).parent().siblings(":first").text();
+    $(location).attr('href', '/delete/'+id);
+    });
+
+</script>
 
 </html>
