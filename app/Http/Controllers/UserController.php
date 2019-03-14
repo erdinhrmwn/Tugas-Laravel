@@ -85,7 +85,15 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        DB::table('pembeli')->where('id', $id)->update([
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'alamat' => $request->alamat,
+            'nama_barang' => $request->nama_barang,
+            'harga' => $request->harga_barang,
+            'jumlah' => $request->jumlah_barang
+        ]);
+        return redirect('/');
     }
 
     /**

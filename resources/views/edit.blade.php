@@ -299,11 +299,11 @@
         <div class="container">
             <h1> Edit User </h1>
             @foreach ($data as $k)
-            <form class="form" action="update/{{ $k->id }}" method="POST">
+            <form class="form" action="/update/{{ $k->id }}" method="POST">
                 {!! csrf_field() !!}
                 <input type="hidden" name="id" value="{{ $k->id }}">
                 <input type="text" name="nama" placeholder="Nama" value="{{ $k->nama }}">
-                <input type="email" name="email" placeholder="Email" value="{{ $k->email }}" disabled>
+                <input type="email" name="email" placeholder="Email" value="{{ $k->email }}">
                 <input type="text" name="alamat" placeholder="Alamat" value="{{ $k->alamat }}">
                 <input type="text" name="nama_barang" placeholder="Nama Barang" value="{{ $k->nama_barang }}">
                 <input type="text" name="harga_barang" placeholder="Harga Barang" value="{{ $k->harga }}">
@@ -354,7 +354,7 @@
             'jumlah_barang': jumlah_barang
         }
     $.ajax({
-        url: 'update/'+id,
+        url: '/update/'+id,
         dataType: 'json',
         type: 'post',
         contentType: 'application/json',

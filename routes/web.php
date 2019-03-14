@@ -17,3 +17,4 @@ Route::post('/add/store', 'UserController@store');
 Route::get('/add', 'UserController@index');
 Route::get('/edit/{id}', 'UserController@edit');
 Route::get('/delete/{id}', 'UserController@destroy');
+Route::post('/update/{id}', 'UserController@update');
