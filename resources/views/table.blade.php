@@ -11,7 +11,6 @@
     <!-- Styles -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
         crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
     <style>
         h1 {
             font-size: 30px;
@@ -175,20 +174,22 @@
             <div class="tbl-content">
                 <table cellpadding="0" cellspacing="0" border="0">
                     <tbody>
+                        @foreach ($data as $k)
                         <tr>
-                            <td>1</td>
-                            <td>Erdin</td>
-                            <td>erdinhermawann@gmail.com</td>
-                            <td>Jalanan</td>
-                            <td>Baju</td>
-                            <td>40000</td>
-                            <td>2</td>
+                            <td>{{ $k->id }}</td>
+                            <td>{{ $k->nama }}</td>
+                            <td>{{ $k->email }}</td>
+                            <td>{{ $k->alamat }}</td>
+                            <td>{{ $k->nama_barang }}</td>
+                            <td>{{ $k->harga }}</td>
+                            <td>{{ $k->jumlah }}</td>
                             <td>
-                                <button id="add"><i class="fas fa-user-plus"></i></button>
-                                <button id="edit"><i class="far fa-edit"></i></button>
-                                <button id="delete"><i class="far fa-trash-alt"></i></button>
+                                <button onclick="add()"><i class="fas fa-user-plus"></i></button>
+                                <button onclick="edit({{ $k->id }})"><i class="far fa-edit"></i></button>
+                                <button onclick="del({{ $k->id }})"><i class="far fa-trash-alt"></i></button>
                             </td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -197,28 +198,20 @@
 
         <!-- follow me template -->
         <div class="made-with-love">
-            Made with
-            <i>♥</i> by
-            <a target="_blank" href="https://fb.me/zuck">Erdin Hermawan</a>
+            Made with <i>♥</i> by <a target="_blank" href="https://fb.me/zuck">Erdin Hermawan</a>
         </div>
     </div>
 </body>
 <script>
-    $("#add").on("click", function(e){
-		 e.preventDefault();
-    // var id = $("input[name=id]").val();
-    $(location).attr('href', '/add')
-    });
-    $("#edit").on("click", function(e){
-		 e.preventDefault();
-    var id = $(this).parent().siblings(":first").text();
-    $(location).attr('href', '/edit/'+id);
-    });
-    $("#delete").on("click", function(e){
-		 e.preventDefault();
-    var id = $(this).parent().siblings(":first").text();
-    $(location).attr('href', '/delete/'+id);
-    });
+    function add(){
+            $(location).attr('href', '/add')
+        };
+        function edit(id){
+            $(location).attr('href', '/edit/'+id);
+        };
+        function del(id){
+            $(location).attr('href', '/delete/'+id);
+        };
 
 </script>
 

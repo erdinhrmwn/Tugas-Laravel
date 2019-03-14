@@ -11,12 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('table');
-});
-Route::get('/add', function () {
-    return view('add');
-});
-Route::get('/edit', function () {
-    return view('edit');
-});
+
+Route::get('/', 'PembeliController@index');
+Route::post('/add/store', 'UserController@store');
+Route::get('/add', 'UserController@index');
+Route::get('/edit/{id}', 'UserController@edit');
+Route::get('/delete/{id}', 'UserController@destroy');
