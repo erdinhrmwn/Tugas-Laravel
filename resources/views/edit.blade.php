@@ -323,14 +323,30 @@
     </div>
 </body>
 <script>
-    $("form").on("submit", function(e){
-		 e.preventDefault();
+    $("form").on("submit", function(e) {
     $('form').fadeOut(500);
     $('.wrapper').addClass('form-success');
     $("h1").text("Please wait...");
-    // var id = $("input[name=id]").val();
-    // $(location).attr('href', '/edit/'+id)
+
+    // alert(JSON.stringify(data));
+    $.ajax({
+        url: 'edit/',
+        dataType: 'json',
+        type: 'post',
+        contentType: 'application/json',
+        data: $(this).serialize(),
+        success: function(data, textStatus, jQxhr) {
+            $("h1").text("Success add user...");
+            $(location).attr('href', '/table');
+            alert(JSON.stringify(data));
+        },
+        error: function(jqXhr, textStatus, errorThrown) {
+            console.log(errorThrown);
+        }
     });
+
+    e.preventDefault();
+});
 
 </script>
 
