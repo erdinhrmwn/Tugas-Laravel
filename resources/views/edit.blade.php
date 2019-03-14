@@ -299,7 +299,7 @@
     <div class="wrapper">
         <div class="container">
             <h1> Edit User </h1>
-            <form class="form" action="/edit/{id}">
+            <form class="form" action="/edit/{id}" method="POST">
                 <input type="hidden" name="id" value="id">
                 <input type="email" name="email" placeholder="Email">
                 <input type="text" name="nama" placeholder="Nama">
@@ -325,8 +325,9 @@
 <script>
     $("form").on("submit", function(e){
 		 e.preventDefault();
-	$('form').fadeOut(500);
+    $('form').fadeOut(500);
     $('.wrapper').addClass('form-success');
+    $("h1").text("Please wait...");
     // var id = $("input[name=id]").val();
     // $(location).attr('href', '/edit/'+id)
     });

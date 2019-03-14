@@ -11,7 +11,6 @@
     <!-- Styles -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
         crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
     <style>
         @font-face {
             font-family: 'Source Sans Pro';
@@ -299,10 +298,14 @@
     <div class="wrapper">
         <div class="container">
             <h1> Add User </h1>
-            <form class="form" action="/add">
-                <input type="email" name="email" placeholder="Email">
+            <form class="form" action="add/store" method="POST">
                 <input type="text" name="nama" placeholder="Nama">
+                <input type="email" name="email" placeholder="Email">
                 <input type="password" name="password" placeholder="Password">
+                <input type="text" name="alamat" placeholder="Alamat">
+                <input type="text" name="nama_barang" placeholder="Nama Barang">
+                <input type="text" name="harga_barang" placeholder="Harga Barang">
+                <input type="text" name="jumlah_barang" placeholder="Jumlah Barang">
                 <button type="submit" id="add">Add</button>
             </form>
         </div>
@@ -322,11 +325,30 @@
     </div>
 </body>
 <script>
-    $("form").on("submit", function(e){
-		 e.preventDefault();
-	$('form').fadeOut(500);
-	$('.wrapper').addClass('form-success');
+    $("form").on("submit", function(e) {
+    $('form').fadeOut(500);
+    $('.wrapper').addClass('form-success');
+    $("h1").text("Please wait...");
+
+    // alert(JSON.stringify(data));
+    $.ajax({
+        url: 'add/store',
+        dataType: 'json',
+        type: 'post',
+        contentType: 'application/json',
+        data: $(this).serialize(),
+        success: function(data, textStatus, jQxhr) {
+            $("h1").text("Success add user...");
+            $(location).attr('href', '/table');
+            alert(JSON.stringify(data));
+        },
+        error: function(jqXhr, textStatus, errorThrown) {
+            console.log(errorThrown);
+        }
     });
+
+    e.preventDefault();
+});
 
 </script>
 
