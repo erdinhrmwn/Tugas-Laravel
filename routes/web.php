@@ -12,7 +12,8 @@
 */
 
 
-Route::get('/', 'PembeliController@index');
+Route::get('/', 'UserController@index');
+Route::get('/view', 'PembeliController@index');
 Route::post('/add/store', 'UserController@store');
 Route::get('/add', 'UserController@index');
 Route::get('/edit/{id}', 'UserController@edit');

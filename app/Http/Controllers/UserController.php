@@ -48,7 +48,7 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => $request->password
         ]);
-        return redirect('/');
+        return redirect('/view');
     }
 
     /**
@@ -93,7 +93,7 @@ class UserController extends Controller
             'harga' => $request->harga_barang,
             'jumlah' => $request->jumlah_barang
         ]);
-        return redirect('/');
+        return redirect('/view');
     }
 
     /**
@@ -106,6 +106,6 @@ class UserController extends Controller
     {
         DB::table('userx')->where('id', $id)->delete();
         DB::table('pembeli')->where('id', $id)->delete();
-        return redirect('/');
+        return redirect('/view');
     }
 }
