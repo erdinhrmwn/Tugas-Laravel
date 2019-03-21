@@ -39,8 +39,9 @@
 
 <body>
     <div class="wrapper">
-    @include('header') @yield('content')
+    @include('header')
         <div class="content">
+            @yield('content')
             <h1>Welcome :)</h1>
         </div>
     @include('footer')
