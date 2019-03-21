@@ -68,9 +68,9 @@ class User extends Controller
     public function registerPost(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|min:4',
-            'email' => 'required|min:4|email|unique:users',
-            'password' => 'required',
+            'name' => 'required|min:2',
+            'email' => 'required|min:6|email|unique:users',
+            'password' => 'required|min:6',
             'confirmation' => 'required|same:password',
         ]);
 

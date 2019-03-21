@@ -12,15 +12,20 @@
 */
 
 
-Route::get('/', 'User@index');
+Route::get('/', function () {
+    return view('layouts.home');
+});
 Route::get('/view', 'PembeliController@index');
-Route::post('/add/store', 'UserController@store');
 Route::get('/add', 'UserController@index');
+Route::post('/add/store', 'UserController@store');
 Route::get('/edit/{id}', 'UserController@edit');
 Route::get('/delete/{id}', 'UserController@destroy');
 Route::post('/update/{id}', 'UserController@update');
+
 Route::get('/login', 'User@login');
 Route::post('/loginPost', 'User@loginPost');
+
 Route::get('/register', 'User@register');
 Route::post('/registerPost', 'User@registerPost');
+
 Route::get('/logout', 'User@logout');
