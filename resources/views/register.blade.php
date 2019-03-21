@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <title>Login</title>
+    <title>Register</title>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <!-- Styles -->
@@ -29,11 +29,16 @@
             @endif
             <form action="{{ url('/registerPost') }}" method="post">
                 {!! csrf_field() !!}
+                <label>Nama</label>
                 <input type="text" name="name" placeholder="Nama">
+                <label>Email</label>
                 <input type="email" name="email" placeholder="Email">
+                <label>Password</label>
                 <input type="password" name="password" placeholder="Password">
+                <label>Password Confirmation</label>
                 <input type="password" name="confirmation" placeholder="Password Confirmation">
                 <button type="submit">Submit</button>
+                <h4><a href="{{ url('/login') }}">Login</a></h4>
             </form>
         </div>
 

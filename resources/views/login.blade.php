@@ -29,7 +29,7 @@
             @endif
             <form action="{{ url('/loginPost') }}" method="post">
                 {!! csrf_field() !!}
-                <label>Username</label>
+                <label>Email</label>
                 <input type="email" name="email" placeholder="Email">
                 <label>Password</label>
                 <input type="password" name="password" placeholder="Password">
