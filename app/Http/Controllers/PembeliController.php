@@ -14,8 +14,12 @@ class PembeliController extends Controller
      */
     public function index()
     {
-        $data = DB::table('pembeli')->get();
-        return view('table', ['data' => $data]);
+        if (!Auth::check()) {
+            return redirect('login')->with('alert', 'Kamu harus login dulu');
+        } else {
+            $data = DB::table('pembeli')->get();
+            return view('table', ['data' => $data]);
+        }
     }
 
     /**
@@ -47,8 +51,12 @@ class PembeliController extends Controller
      */
     public function show($id)
     {
-        $data = DB::table('pembeli')->get();
-        return view('table', ['data' => $data]);
+        if (!Auth::check()) {
+            return redirect('login')->with('alert', 'Kamu harus login dulu');
+        } else {
+            $data = DB::table('pembeli')->get();
+            return view('table', ['data' => $data]);
+        }
     }
 
     /**

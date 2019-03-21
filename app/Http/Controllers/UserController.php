@@ -14,7 +14,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('add');
+        if (!Auth::check()) {
+            return redirect('login')->with('alert', 'Kamu harus login dulu');
+        } else {
+            return view('add');
+        }
     }
 
     /**
@@ -70,10 +74,14 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        // $userx[] = DB::table('userx')->where('id', $id)->get();
-        $pembeli = DB::table('pembeli')->where('id', $id)->get();
-        // $data[] = array_replace_recursive($userx, $pembeli);
-        return view('edit', ['data' => $pembeli]);
+        if (!Auth::check()) {
+            return redirect('login')->with('alert', 'Kamu harus login dulu');
+        } else {
+            // $userx[] = DB::table('userx')->where('id', $id)->get();
+            $pembeli = DB::table('pembeli')->where('id', $id)->get();
+            // $data[] = array_replace_recursive($userx, $pembeli);
+            return view('edit', ['data' => $pembeli]);
+        }
     }
 
     /**
@@ -85,15 +93,19 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        DB::table('pembeli')->where('id', $id)->update([
-            'nama' => $request->nama,
-            'email' => $request->email,
-            'alamat' => $request->alamat,
-            'nama_barang' => $request->nama_barang,
-            'harga' => $request->harga_barang,
-            'jumlah' => $request->jumlah_barang
-        ]);
-        return redirect('/view');
+        if (!Auth::check()) {
+            return redirect('login')->with('alert', 'Kamu harus login dulu');
+        } else {
+            DB::table('pembeli')->where('id', $id)->update([
+                'nama' => $request->nama,
+                'email' => $request->email,
+                'alamat' => $request->alamat,
+                'nama_barang' => $request->nama_barang,
+                'harga' => $request->harga_barang,
+                'jumlah' => $request->jumlah_barang
+            ]);
+            return redirect('/view');
+        }
     }
 
     /**
@@ -104,8 +116,12 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        DB::table('userx')->where('id', $id)->delete();
-        DB::table('pembeli')->where('id', $id)->delete();
-        return redirect('/view');
+        if (!Auth::check()) {
+            return redirect('login')->with('alert', 'Kamu harus login dulu');
+        } else {
+            DB::table('userx')->where('id', $id)->delete();
+            DB::table('pembeli')->where('id', $id)->delete();
+            return redirect('/view');
+        }
     }
 }

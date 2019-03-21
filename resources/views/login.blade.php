@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <title>Database</title>
+    <title>Login</title>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <!-- Styles -->
@@ -17,18 +17,27 @@
 <body>
     <div class="wrapper">
         <div class="container">
-            <h1> Add User </h1>
-            <form class="form">
+            <h1> Login User </h1>
+            @if(\Session::has('alert'))
+            <div class="alert alert-danger">
+                <div>{{ Session::get('alert') }}</div>
+            </div>
+            @endif @if(\Session::has('alert-success'))
+            <div class="alert alert-success">
+                <div>{{ Session::get('alert-success') }}</div>
+            </div>
+            @endif
+            <form action="{{ url('/loginPost') }}" method="post">
                 {!! csrf_field() !!}
-                <input type="text" name="nama" placeholder="Nama">
+                <label>Username</label>
                 <input type="email" name="email" placeholder="Email">
+                <label>Password</label>
                 <input type="password" name="password" placeholder="Password">
-                <input type="text" name="alamat" placeholder="Alamat">
-                <input type="text" name="nama_barang" placeholder="Nama Barang">
-                <input type="text" name="harga_barang" placeholder="Harga Barang">
-                <input type="text" name="jumlah_barang" placeholder="Jumlah Barang">
-                <button type="submit" id="add">Add</button>
+                <button type="submit">Login</button>
+
+                <h4><a href="{{ url('/register') }}">Register</a></h4>
             </form>
+
         </div>
 
         <ul class="bg-bubbles">
@@ -46,6 +55,7 @@
     </div>
 </body>
 <script>
+    $( document ).ready(function() {
     $("form").on("submit", function(e) {
     $('form').fadeOut(500);
     $('.wrapper').addClass('form-success');
@@ -53,22 +63,16 @@
 
     // alert(JSON.stringify(data));
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-    var nama = $('input[name=nama]').val();
     var email = $('input[name=email]').val();
     var password = $('input[name=password]').val();
-    var alamat = $('input[name=alamat]').val();
-    var nama_barang = $('input[name=nama_barang]').val();
-    var harga_barang = $('input[name=harga_barang]').val();
-    var jumlah_barang = $('input[name=jumlah_barang]').val();
+    if (email == null || password == null){
+        alert('Data tidak boleh kosong');
+    }else{
     formData = {
             '_token': CSRF_TOKEN,
-            'nama': nama,
+            'name': nama,
             'email': email,
             'password': password,
-            'alamat': alamat,
-            'nama_barang': nama_barang,
-            'harga_barang': harga_barang,
-            'jumlah_barang': jumlah_barang
         }
     $.ajax({
         url         : 'add/store',
@@ -84,8 +88,9 @@
             }, 3000);
         }
     });
-
+}
     e.preventDefault();
+});
 });
 
 </script>

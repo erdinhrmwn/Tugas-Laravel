@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <title>Database</title>
+    <title>Login</title>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <!-- Styles -->
@@ -17,20 +17,24 @@
 <body>
     <div class="wrapper">
         <div class="container">
-            <h1> Edit User </h1>
-            @foreach ($data as $k)
-            <form class="form" action="/update/{{ $k->id }}" method="POST">
+            <h1> Register User </h1>
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul type="none">
+                    @foreach ($errors->all() as $error)
+                    <h4>{{ $error }}</h4>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
+            <form action="{{ url('/registerPost') }}" method="post">
                 {!! csrf_field() !!}
-                <input type="hidden" name="id" value="{{ $k->id }}">
-                <input type="text" name="nama" placeholder="Nama" value="{{ $k->nama }}">
-                <input type="email" name="email" placeholder="Email" value="{{ $k->email }}">
-                <input type="text" name="alamat" placeholder="Alamat" value="{{ $k->alamat }}">
-                <input type="text" name="nama_barang" placeholder="Nama Barang" value="{{ $k->nama_barang }}">
-                <input type="text" name="harga_barang" placeholder="Harga Barang" value="{{ $k->harga }}">
-                <input type="text" name="jumlah_barang" placeholder="Jumlah Barang" value="{{ $k->jumlah }}">
+                <input type="text" name="name" placeholder="Nama">
+                <input type="email" name="email" placeholder="Email">
+                <input type="password" name="password" placeholder="Password">
+                <input type="password" name="confirmation" placeholder="Password Confirmation">
                 <button type="submit">Submit</button>
             </form>
-            @endforeach
         </div>
 
         <ul class="bg-bubbles">
@@ -48,6 +52,7 @@
     </div>
 </body>
 <script>
+    $( document ).ready(function() {
     $("form").on("submit", function(e) {
     $('form').fadeOut(500);
     $('.wrapper').addClass('form-success');
@@ -55,38 +60,35 @@
 
     // alert(JSON.stringify(data));
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-    var id = $('input[name=id]').val();
-    var nama = $('input[name=nama]').val();
+    var nama = $('input[name=name]').val();
     var email = $('input[name=email]').val();
     var password = $('input[name=password]').val();
-    var alamat = $('input[name=alamat]').val();
-    var nama_barang = $('input[name=nama_barang]').val();
-    var harga_barang = $('input[name=harga_barang]').val();
-    var jumlah_barang = $('input[name=jumlah_barang]').val();
+    if (nama == null || email == null || password == null){
+        alert('Data tidak boleh kosong');
+    }else{
     formData = {
             '_token': CSRF_TOKEN,
-            'nama': nama,
+            'name': nama,
             'email': email,
             'password': password,
-            'alamat': alamat,
-            'nama_barang': nama_barang,
-            'harga_barang': harga_barang,
-            'jumlah_barang': jumlah_barang
         }
     $.ajax({
-        url: '/update/'+id,
-        dataType: 'json',
-        type: 'post',
-        contentType: 'application/json',
+        url         : 'add/store',
+        dataType    : 'json',
+        type        : 'post',
+        contentType : 'application/json',
         encode      : true,
-        data: formData )
-        .done(function(data) {
-            $("h1").text("Success edit user...");
-            $(location).attr('href', '/');
+        data        : formData
+        ).done(function(data) {
+            $("h1").text("Success add user...");
+            setTimeout(function(){
+                $(location).attr('href', '/');
+            }, 3000);
         }
     });
-
+}
     e.preventDefault();
+});
 });
 
 </script>
